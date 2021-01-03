@@ -1,0 +1,157 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="GeneralZone.master.cs" Inherits="HealthCare.GeneralZone" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link href="Content/fontawesome-all.min.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        /*Navbar Shadow
+            .effect {
+            position: relative;
+        }
+
+            .effect::before {
+                position: absolute;
+                content: "";
+                z-index: -1;
+                bottom: 5px;
+                left: 30px;
+                right: 30px;
+                top: 80%;
+                background: #aaa;
+                box-shadow: 0 0 25px 17px #aaa;
+                border-radius: 1000px/10px;
+            }*/
+        .form-control::placeholder {
+            font-style: italic;
+        }
+
+        .form-control.shadow-0:focus {
+            box-shadow: none;
+        }
+        .nav-link{
+            font-size: large !important;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <%--Navbar--%>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <a class="navbar-brand" href="#">Health Care</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.aspx">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="Department.aspx">Department</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Medicine.aspx">Medicine</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Contact.aspx">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="AmbulanceBooking.aspx">Book Ambulance</a>
+                    </li>
+                    <%--<li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Doctor's
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Action</a>
+                            <a class="dropdown-item" href="#">Another action</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Something else here</a>
+                        </div>
+                    </li>--%>
+                    <li class="nav-item">
+                        <a class="nav-link" href="Login.aspx">Login</a>
+                    </li>
+                </ul>
+                <%--<li class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </li>--%>
+            </div>
+        </nav>
+        <%--Place Holder--%>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+        <%--Footer--%>
+        <footer class="bg-white">
+            <div class="container py-5">
+                <div class="row py-auto">
+                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Health Care</h5>
+                        <p class="font-italic text-muted text-justify">Health Care provides Web based portal to Consult to the best doctors of world-wide area.Health Care come with an online repository of Health Tips, Infographics, and Health & Wellness content.</p>
+                        <ul class="list-inline mt-4">
+                            <li class="list-inline-item mx-2"><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                            <li class="list-inline-item mx-2"><a href="#"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item mx-2"><a href="#"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item mx-2"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+                            <li class="list-inline-item"><a href="#"><i class="fa fa-vimeo"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Excellence</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Cancer Care</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Nuero Science</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Ortho Padics</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Spine</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Transplant</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Surgery</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Patient Care</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Find A Doctor</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Book Appointment</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Book Ambulance</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Consult Doctors</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Newsletter</h5>
+                        <p class="text-muted mb-4">Join Health Care for your life. We support you for your healthy life.</p>
+                        <div class="p-1 rounded border">
+                            <div class="input-group">
+                                <input type="email" placeholder="Enter your email address" aria-describedby="button-addon1" class="form-control border-0 shadow-0">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link"><i class="fa fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyrights -->
+            <div class="bg-light py-4">
+                <div class="container text-center">
+                    <p class="text-muted mb-0 py-2">© 2020 Health Care All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--%>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js" integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig==" crossorigin="anonymous"></script>--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+</body>
+</html>
