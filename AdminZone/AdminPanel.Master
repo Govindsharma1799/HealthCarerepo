@@ -1,0 +1,445 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="AdminPanel.master.cs" Inherits="HealthCare.AdminZone.AdminPanel" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title></title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        .vertical-nav {
+            min-width: 17rem;
+            width: 17rem;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s;
+        }
+
+        .page-content {
+            width: calc(100% - 17rem);
+            margin-left: 17rem;
+            transition: all 0.4s;
+        }
+
+        /* for toggle behavior */
+        #sidebar.active {
+            position: fixed;
+            min-width: 5rem;
+            width: 5rem;
+            transition: all 0.4s;
+            /*margin-left: -12rem;*/
+        }
+
+        #content.active {
+            width: auto;
+            margin-left: 5rem;
+            transition: all 0.4s;
+            text-align:center;
+        }
+        /*@media (max-width: 768px) {
+            #sidebar {
+                margin-left: -17rem;
+            }
+
+                #sidebar.active {
+                    margin-left: 0;
+                }
+
+            #content {
+                width: 100%;
+                margin: 0;
+            }
+
+                #content.active {
+                    margin-left: 17rem;
+                    width: calc(100% - 17rem);
+                }
+        }*/
+        .fa-me {
+            font-size: 25px;
+        }
+
+        .menu-text {
+            font-size: 20px;
+        }
+
+        .nav-center {
+            position: relative;
+            left: 30%;
+            /*transform: translatex(-50%);*/
+        }
+
+        .card {
+            overflow: hidden;
+        }
+
+        .card-body .rotate {
+            z-index: 8;
+            float: right;
+            height: 100%;
+        }
+
+            .card-body .rotate i {
+                color: rgba(20, 20, 20, 0.15);
+                position: absolute;
+                left: 0;
+                left: auto;
+                right: -10px;
+                bottom: 0;
+                display: block;
+                transform: rotate(-44deg);
+            }
+
+        .card-box {
+            position: relative;
+            color: #fff;
+            padding: 20px 10px 40px;
+            margin: 20px 0px;
+            border-radius: 5px;
+        }
+
+            .card-box:hover {
+                text-decoration: none;
+                color: #f1f1f1;
+            }
+
+                .card-box:hover .icon i {
+                    font-size: 100px;
+                    transition: 1s;
+                    -webkit-transition: 1s;
+                }
+
+            .card-box .inner {
+                padding: 5px 10px 0 10px;
+            }
+
+            .card-box h3 {
+                font-size: 27px;
+                font-weight: bold;
+                margin: 0 0 8px 0;
+                white-space: nowrap;
+                padding: 0;
+                text-align: left;
+            }
+
+            .card-box p {
+                font-size: 15px;
+            }
+
+            .card-box .icon {
+                position: absolute;
+                top: auto;
+                bottom: 5px;
+                right: 5px;
+                z-index: 0;
+                font-size: 72px;
+                color: rgba(0, 0, 0, 0.15);
+            }
+
+            .card-box .card-box-footer {
+                position: absolute;
+                left: 0px;
+                bottom: 0px;
+                text-align: center;
+                padding: 3px 0;
+                color: rgba(255, 255, 255, 0.8);
+                background: rgba(0, 0, 0, 0.1);
+                width: 100%;
+                text-decoration: none;
+            }
+
+            .card-box:hover .card-box-footer {
+                background: rgba(0, 0, 0, 0.3);
+            }
+
+        .bg-blue {
+            background-color: #00c0ef !important;
+        }
+
+        .bg-green {
+            background-color: #00a65a !important;
+        }
+
+        .bg-orange {
+            background-color: #f39c12 !important;
+        }
+
+        .bg-red {
+            background-color: #d9534f !important;
+        }
+
+
+        /********* SIDE NAV BAR ***********/
+        a {
+            color: #000;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        .panel-heading {
+            border-color: #ddd;
+        }
+
+        .panel-group .panel + .panel {
+            margin-top: 0px;
+        }
+
+        ul.list-group {
+            margin: 0px;
+        }
+
+        ul.bulletlist li {
+            list-style: disc;
+        }
+
+        ul.list-group li a {
+            display: block;
+            padding: 5px 0px 5px 15px;
+            text-decoration: none;
+        }
+
+            ul.list-group li a:hover {
+                color: #fff;
+                background-color: #00436a;
+            }
+
+        .panel-title a:hover,
+        .panel-title a:active,
+        .panel-title a:focus,
+        .panel-title .open a:hover,
+        .panel-title .open a:active,
+        .panel-title .open a:focus {
+            text-decoration: none;
+            color: #000000;
+        }
+
+        .panel-title > .small, .panel-title > .small > a, .panel-title > a, .panel-title > small, .panel-title > small > a {
+            display: block;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-collapse.collapse {
+                display: block !important;
+                height: auto !important;
+                padding-bottom: 0;
+                overflow: visible !important;
+                padding-left: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!-- Vertical navbar -->
+        <div class="vertical-nav bg-dark" id="sidebar">
+            <div class="py-4 px-3 mb-4 bg-dark">
+                <div class="media d-flex align-items-center">
+                    <img src="https://res.cloudinary.com/mhmd/image/upload/v1556074849/avatar-1_tcnd60.png" alt="..." width="65" class="mr-3 rounded-circle img-thumbnail shadow-sm">
+                    <div class="media-body">
+                        <p class="m-0 text-light h2 head-text">Admin</p>
+                    </div>
+                </div>
+            </div>
+            <p class="text-light font-weight-bold text-uppercase px-3 small pb-4 mb-0"><span class="menu-text">Main</span></p>
+            <div class="collapse navbar-collapse" id="sideNavbar">
+                <div class="panel-group" id="accordion">
+                    <%--First Menu--%>
+                    <div class="panel-heading panel-title p-3">
+                        <a href="AdminIndex.aspx" class="ml-2 text-white">
+                            <i class="fa fa-th-large mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Home</span>
+                        </a>
+                    </div>
+                    <%--Second Menu--%>
+                    <div class="panel-heading panel-title p-3">
+                        <a href="ConsultPanel.aspx" class="ml-2 text-white">
+                            <i class="fa fa-area-chart mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Consult Doctor</span>
+                        </a>
+                    </div>
+                    <%--Second Menu--%>
+                    <div class="panel-heading panel-title p-3">
+                        <a class="ml-2 text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <i class="fa fa-cubes mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Management</span>
+                            <span class="fa fa-chevron-down fa-fw py-2 pull-right menu-text"></span>
+                        </a>
+                    </div>
+                    <div id="collapseTwo" class="panel-collapse collapse bg-light">
+                        <ul class="list-group text-white">
+                            <li><a href="RegistrationManagement.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Registration</span></a></li>
+                            <li><a href="AppointmentManagement.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Appointment</span></a></li>
+                            <li><a href="EnquiryManagement.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Enquiry</span></a></li>
+                            <li><a href="LoginManagement.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Login</span></a></li>
+                        </ul>
+                    </div>
+                    <%--Third Menu--%>
+                    <div class="panel-heading panel-title p-3">
+                        <a class="ml-2 text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <i class="fa fa-address-card mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Appointment</span>
+                            <span class="fa fa-chevron-down fa-fw py-2 pull-right menu-text"></span>
+                        </a>
+                    </div>
+                    <div id="collapseOne" class="panel-collapse collapse bg-light">
+                        <ul class="list-group text-white">
+                            <li><a href="GeneralDepartment.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">General Department</span></a></li>
+                            <li><a href="ENTDepartment.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">ENT Department</span></a></li>
+                            <li><a href="HeartDepartment.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Heart Department</span></a></li>
+                            <li><a href="OrthoDepartment.aspx" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Ortho Department</span></a></li>
+                        </ul>
+                    </div>
+                    <%--Fourth Menu--%>
+                    <%--<div class="panel-heading panel-title p-3">
+                        <a class="ml-2 text-white" data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                            <i class="fa fa-picture-o mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Gallery</span>
+                            <span class="fa fa-chevron-down fa-fw py-2 pull-right menu-text"></span>
+                        </a>
+                    </div>
+                    <div id="collapseThree" class="panel-collapse collapse bg-light">
+                        <ul class="list-group text-white">
+                            <li><a href="" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Overview</span></a></li>
+                            <li><a href="" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Link 1</span></a></li>
+                            <li><a href="" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Link 2</span></a></li>
+                            <li><a href="" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Link 3</span></a></li>
+                            <li><a href="" class="p-3"><i class="fa fa-address-card mr-3 ml-2 fa-fw fa-me"></i><span class="menu-text">Link 4</span></a></li>
+                        </ul>
+                    </div>--%>
+                </div>
+            </div>
+            <%--<ul class="nav flex-column bg-dark  mb-0">
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-th-large mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-address-card mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">About</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-cubes mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Services</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-picture-o mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Gallery</span>
+                    </a>
+                </li>
+            </ul>--%>
+            <p class="text-light font-weight-bold text-uppercase px-3 small py-4 mb-0"><span class="menu-text">Other</span></p>
+            <div class="collapse navbar-collapse">
+                <div class="panel-group">
+                    <div class="panel-heading panel-title p-3">
+                        <a href="Notification.aspx" class="ml-2 text-white">
+                            <i class="fa fa-area-chart mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Notification</span>
+                        </a>
+                    </div>
+                    <div class="panel-heading panel-title p-3">
+                        <a href="AmbulanceService.aspx" class="ml-2 text-white">
+                            <i class="fa fa-bar-chart mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Ambulance Service</span>
+                        </a>
+                    </div>
+                    <%--<div class="panel-heading panel-title p-3">
+                        <a href="" class="ml-2 text-white">
+                            <i class="fa fa-pie-chart mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Pie Chart</span>
+                        </a>
+                    </div>
+                    <div class="panel-heading panel-title p-3">
+                        <a href="" class="ml-2 text-white">
+                            <i class="fa fa-line-chart mr-3 fa-fw fa-me"></i>
+                            <span class="menu-text">Line Chart</span>
+                        </a>
+                    </div>--%>
+                </div>
+            </div>
+            <%-- <ul class="nav flex-column bg-dark mb-0">
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-area-chart mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Area charts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-bar-chart mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Bar charts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-pie-chart mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Pie charts</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="ml-2 nav-link text-light font-italic">
+                        <i class="fa fa-line-chart mr-3 fa-fw fa-me"></i>
+                        <span class="menu-text">Line charts</span>
+                    </a>
+                </li>
+            </ul>--%>
+        </div>
+        <!-- Page content holder -->
+        <div class="page-content" id="content">
+            <div class="p-2 bg-light">
+                <ul class="nav">
+                    <li class="nav-item ml-3">
+                        <button id="sidebarCollapse" type="button" class="btn btn-light bg-white shadow-sm"><i class="fa fa-bars fa-me"></i></button>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="AdminIndex.aspx">Home</a>
+                    </li>
+                    <%--                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="#">Search</a>
+                    </li>--%>
+                    <li class="nav-item nav-center">
+                        <a class="h1 title text-uppercase" style="text-decoration: none;">Health care</a>
+                    </li>
+                    <li class="nav-item ml-auto">
+                        <a class="nav-link text-dark" href="Logout.aspx">
+                            <i class="fa fa-power-off"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $('.menu-text').show();
+        $('.head-text').show();
+        $(document).ready(function () {
+            // Sidebar toggle behavior
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar, #content').toggleClass('active');
+                $(".nav-center").css("left", "35%");
+                $(".menu-text").toggle("fast", "linear");
+                $(".head-text").toggle("fast", "linear");
+            });
+        });
+    </script>
+</body>
+</html>

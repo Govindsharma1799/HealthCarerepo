@@ -1,0 +1,167 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PatientZone.master.cs" Inherits="HealthCare.PatientZone.PatientZone" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <title>Health Care</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous" />
+    <link href="../Content/fontawesome-all.min.css" rel="stylesheet" />
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        .form-control:: placeholder {
+            font-style: italic;
+        }
+
+        .form-control.shadow-0:focus {
+            box-shadow: none;
+        }
+
+        .nav-link {
+            font-size: large !important;
+        }
+
+        .ImgUser2 {
+            border-radius: 100%;
+        }
+
+        .borderless table {
+            border-top-style: none;
+            border-left-style: none;
+            border-right-style: none;
+            border-bottom-style: none;
+            width: 100%;
+        }
+    </style>
+   
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form" runat="server">
+        <%--Navbar--%>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+            <a class="navbar-brand" href="#">Health Care</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active"><a class="nav-link" href="PatientIndex.aspx">Home <span class="sr-only">(current)</span></a></li>
+                    <li class="nav-item"><a class="nav-link" href="Appointment.aspx">Appointment</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ReportUpload.aspx">Report Upload</a></li>
+                    <li class="nav-item"><a class="nav-link" href="ConsultDoctor.aspx">Consult Doctor</a></li>
+                    <li class="nav-item dropdown mr-5">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <asp:Image ID="UserPic1" class="rounded-circle" runat="server" Height="30px" Width="30px" Visible="false" />
+                            <asp:Label ID="LblUserName1" runat="server" />
+                        </a>
+                        <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                            <div class="main-body shadow bg-light rounded">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex flex-column align-items-center text-center">
+                                            <asp:Image ID="UserPic2" class="mx-5 rounded-circle p-1 bg-info" ImageUrl="~/Images/avatar.png" runat="server" Height="120px" Width="120px"/>
+                                            <div class="table-responsive-md table-borderless borderless">
+                                                <asp:GridView runat="server" AutoGenerateColumns="False" DataKeyNames="EmailID" DataSourceID="SqlDataSource">
+                                                    <Columns>
+                                                        <asp:TemplateField>
+                                                            <ItemTemplate>
+                                                                <asp:Label Text='<%#Eval("PatientName")%>' class="my-2 h6 text-uppercase" runat="server" />
+                                                                <asp:Label class=" my-2" runat="server" Text='<%#Eval("EmailID")%>' /><br />
+                                                                <asp:Label class=" my-2" runat="server" Text='<%#Eval("Mobile")%>' />
+                                                                <div class="dropdown-divider"></div>
+                                                                <a class="btn btn-outline-primary" role="button" href="Profile.aspx">Profile</a>
+                                                                <a class="btn btn-outline-dark" role="button" href="Logout.aspx">Logout</a>
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
+                                                    </Columns>
+                                                </asp:GridView>
+                                                <asp:SqlDataSource ID="SqlDataSource" runat="server" ConnectionString="<%$ ConnectionStrings:HealthcareConnectionString %>" SelectCommand="SELECT [EmailID], [Mobile], [PatientName], [Status], [ProfilePic] FROM [Registration] WHERE ([EmailID] = @EmailID)">
+                                                    <SelectParameters>
+                                                        <asp:SessionParameter Name="EmailID" SessionField="uid" Type="String" />
+                                                    </SelectParameters>
+                                                </asp:SqlDataSource>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <%--<li class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </li>--%>
+            </div>
+        </nav>
+        <%--Place Holder--%>
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+        </asp:ContentPlaceHolder>
+        <%--Footer--%>
+        <footer class="bg-white">
+            <div class="container py-5">
+                <div class="row py-auto">
+                    <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Health Care</h5>
+                        <p class="font-italic text-muted text-justify">Health Care provides Web based portal to Consult to the best doctors of world-wide area.Health Care come with an online repository of Health Tips, Infographics, and Health & Wellness content.</p>
+                        <ul class="list-inline mt-4">
+                            <li class="list-inline-item"><a href="#" target="_blank" title="twitter"><i class="fa fa-twitter"></i></a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank" title="facebook"><i class="fa fa-facebook"></i></a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank" title="instagram"><i class="fa fa-instagram"></i></a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank" title="pinterest"><i class="fa fa-pinterest"></i></a></li>
+                            <li class="list-inline-item"><a href="#" target="_blank" title="vimeo"><i class="fa fa-vimeo"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Excellence</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Cancer Care</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Nuero Science</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Ortho Padics</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Spine</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Transplant</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Surgery</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-2 col-md-6 mb-4 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Patient Care</h5>
+                        <ul class="list-unstyled mb-0">
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Find A Doctor</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Book Appointment</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Book Ambulance</a></li>
+                            <li class="mb-2"><a href="#" class="text-muted"><i class="fa fa-arrow-right"></i> Consult Doctors</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-4 col-md-6 mb-lg-0">
+                        <h5 class="text-uppercase font-weight-bold mb-4">Newsletter</h5>
+                        <p class="text-muted mb-4">Join Health Care for your life. We support you for your healthy life.</p>
+                        <div class="p-1 rounded border">
+                            <div class="input-group">
+                                <input type="email" placeholder="Enter your email address" aria-describedby="button-addon1" class="form-control border-0 shadow-0">
+                                <div class="input-group-append">
+                                    <button id="button-addon1" type="submit" class="btn btn-link"><i class="fa fa-paper-plane"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyrights -->
+            <div class="bg-light py-4">
+                <div class="container text-center">
+                    <p class="text-muted mb-0 py-2">© 2020 Health Care All rights reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <%--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>--%>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <%--<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js" integrity="sha512-iceXjjbmB2rwoX93Ka6HAHP+B76IY1z0o3h+N1PeDtRSsyeetU3/0QKJqGyPJcX63zysNehggFwMC/bi7dvMig==" crossorigin="anonymous"></script>--%>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+</body>
+</html>
